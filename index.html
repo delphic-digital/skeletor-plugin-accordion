@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Skeletor Accordion Plugin</title>
+</head>
+<body>
+	<p>Skeletor Accordion Plugin</p>
+	<div id="container"></div>
+	<script src="jspm_packages/system.js"></script>
+	<script src="jspm.config.js"></script>
+
+	<script>
+		SystemJS.import('skeletor-plugin-accordion')
+		.then(() => {
+				new Skeletor.Accordion($('p'),{option3: 10})
+				//console.log(Skeletor)
+			}
+		);
+	</script>
+
+</body>
+</html>
