@@ -2,10 +2,10 @@
   "name": "skeletor-plugin-accordion",
   "version": "0.1.0",
   "description": "Accordion component for Skeletor",
-  "main": "accordion.js",
+  "main": "src/accordion.js",
   "jspm": {
     "name": "skeletor-plugin-accordion",
-    "main": "src/skeletor-plugin-accordion.js",
+    "main": "src/accordion.js",
     "dependencies": {
       "skeletor": "local:skeletor@2.0.0"
     },
@@ -18,7 +18,6 @@
       }
     }
   },
-  "registry": "npm",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/delphic-digital/skeletor-plugin-accordion.git"
