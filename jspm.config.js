@@ -7,21 +7,19 @@ SystemJS.config({
   browserConfig: {
     "baseURL": "/"
   },
-  devConfig: {
-    "map": {
-      "plugin-babel": "npm:systemjs-plugin-babel@0.0.15"
-    }
-  },
   transpiler: "plugin-babel",
   packages: {
     "skeletor-plugin-accordion": {
-      "main": "skeletor.accordion.js",
+      "main": "skeletor-plugin-accordion.js",
       "meta": {
         "*.js": {
           "loader": "plugin-babel"
         }
       }
     }
+  },
+  map: {
+    "plugin-babel": "npm:systemjs-plugin-babel@0.0.16"
   }
 });
 
@@ -32,10 +30,17 @@ SystemJS.config({
     "local:*.json"
   ],
   map: {
-    "skeletor": "local:skeletor@2.0.0"
+    "skeletor-core": "local:skeletor-core@3.0.0",
+    "skeletor-plugin-base": "local:skeletor-plugin-base@0.1.0"
   },
   packages: {
-    "local:skeletor@2.0.0": {
+    "local:skeletor-plugin-base@0.1.0": {
+      "map": {
+        "skeletor": "local:skeletor@3.0.0",
+        "skeletor-core": "local:skeletor-core@3.0.0"
+      }
+    },
+    "local:skeletor-core@3.0.0": {
       "map": {
         "jquery": "npm:jquery@3.1.1"
       }

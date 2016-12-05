@@ -2,15 +2,13 @@
   "name": "skeletor-plugin-accordion",
   "version": "0.1.0",
   "description": "Accordion component for Skeletor",
-  "main": "src/skeletor.accordion.js",
+  "main": "src/skeletor-plugin-accordion.js",
   "jspm": {
     "name": "skeletor-plugin-accordion",
-    "main": "src/skeletor.accordion.js",
+    "main": "src/skeletor-plugin-accordion.js",
     "dependencies": {
-      "skeletor": "local:skeletor@2.0.0"
-    },
-    "devDependencies": {
-      "plugin-babel": "systemjs-plugin-babel@^0.0.15"
+      "skeletor-core": "local:skeletor-core@3.0.0",
+      "skeletor-plugin-base": "local:skeletor-plugin-base@0.1.0"
     },
     "overrides": {
       "npm:jquery@3.1.1": {
@@ -28,9 +26,6 @@
     "url": "https://github.com/delphic-digital/skeletor-plugin-accordion/issues"
   },
   "homepage": "https://github.com/delphic-digital/skeletor-plugin-accordion#readme",
-  "devDependencies": {
-    "jspm": "^0.17.0-beta.29"
-  },
   "scripts": {
     "serve": "browser-sync start --server --files src/**/*.js --no-open",
     "link": "jspm link ../Skeletor.core"
