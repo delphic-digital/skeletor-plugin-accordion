@@ -2,10 +2,10 @@
   "name": "skeletor-plugin-accordion",
   "version": "0.1.0",
   "description": "Accordion component for Skeletor",
-  "main": "src/accordion.js",
+  "main": "src/skeletor.accordion.js",
   "jspm": {
     "name": "skeletor-plugin-accordion",
-    "main": "src/accordion.js",
+    "main": "src/skeletor.accordion.js",
     "dependencies": {
       "skeletor": "local:skeletor@2.0.0"
     },

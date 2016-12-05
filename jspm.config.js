@@ -15,7 +15,7 @@ SystemJS.config({
   transpiler: "plugin-babel",
   packages: {
     "skeletor-plugin-accordion": {
-      "main": "accordion.js",
+      "main": "skeletor.accordion.js",
       "meta": {
         "*.js": {
           "loader": "plugin-babel"
