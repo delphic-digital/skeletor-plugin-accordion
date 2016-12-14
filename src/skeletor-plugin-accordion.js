@@ -45,6 +45,7 @@ class Accordion extends SkeletorPlugin {
 		//Define custom element for child items
 		window.customElements.define("skeletor-accordion-item", AccordionItem);
 
+		this.setAttribute('id', this.UUID);
 		this.setAttribute('role', 'tablist');
 		this.setAttribute('aria-multiselectable', 'true');
 	}

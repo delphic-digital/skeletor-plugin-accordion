@@ -31,7 +31,7 @@ class AccordionItem extends HTMLElement {
 		this.headerElm.setAttribute('role', 'tab');
 		this.headerElm.setAttribute('aria-expanded', 'false');
 		this.headerElm.setAttribute('aria-selected', 'false');
-		//this.setAttribute('aria-controls', `${this.uuid}-section`);
+		//this.headerElm.setAttribute('aria-controls', `${this.uuid}-section`);
 
 		this.initEventListeners()
 	}
@@ -39,8 +39,6 @@ class AccordionItem extends HTMLElement {
 	initEventListeners(){
 		this.headerElm.addEventListener('click', e => {
 			this.toggle();
-			/*this.header.setAttribute('aria-expanded', 'true');
-			this.header.setAttribute('aria-selected', 'true');*/
 		});
 	}
 
@@ -50,8 +48,6 @@ class AccordionItem extends HTMLElement {
 		}else{
 			this.open=true
 		}
-
-		console.log(this.open)
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
