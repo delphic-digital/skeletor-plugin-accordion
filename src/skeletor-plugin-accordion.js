@@ -29,7 +29,7 @@ class Accordion extends SkeletorPlugin {
 
 			<style>
 
-				:host         { margin: 0 0 40px; }
+				:host         { display:block; margin: 0 0 40px; padding: 20px; }
 				:focus        { outline: 1px solid red; }
 
 			</style>

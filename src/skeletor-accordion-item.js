@@ -3,6 +3,7 @@
  * @license     http://opensource.org/licenses/BSD-3-Clause
  */
 
+//import { tween } from 'popmotion';
 
 class AccordionItem extends HTMLElement {
 	constructor() {
@@ -11,15 +12,16 @@ class AccordionItem extends HTMLElement {
 
 			<style>
 
-				:focus        { outline: 1px solid red; }
-				header        { font-size: 1.5em; cursor: pointer; border: 1px solid pink; }
-				header:focus  { outline: 1px solid red; }
-				content       { display: block; padding: 20px 0; border: 1px solid black; }
+				:focus                       { outline: 1px solid red; }
+				header                       { padding: 0 10px; font-size: 1.5em; cursor: pointer; border: 1px solid pink; }
+				header[aria-selected="true"] { outline: 1px solid red; }
+				.content                     { display: block; padding: 10px; border: 1px solid black; }
+ 				.content[aria-hidden="true"] { display: none; }
 
 			</style>
 
 			<header><slot name="header"></slot></header>
-			<div><slot name="content"></slot></div>
+			<div class="content"><slot name="content"></slot></div>
 		`;
 	}
 
@@ -31,6 +33,11 @@ class AccordionItem extends HTMLElement {
 		this.headerElm.setAttribute('role', 'tab');
 		this.headerElm.setAttribute('aria-expanded', 'false');
 		this.headerElm.setAttribute('aria-selected', 'false');
+
+		this.contentElm.setAttribute('role', 'tabpanel');
+		this.contentElm.setAttribute('aria-hidden', 'true');
+
+
 		//this.headerElm.setAttribute('aria-controls', `${this.uuid}-section`);
 
 		this.initEventListeners()
@@ -51,13 +58,17 @@ class AccordionItem extends HTMLElement {
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		console.log(`${name} attributes value changed`)
+		//console.log(`${name} attributes value changed`)
 
 		if(this.open){
 			this.headerElm.setAttribute('aria-expanded', 'true');
 			this.headerElm.setAttribute('aria-selected', 'true');
+
+			this.contentElm.setAttribute('aria-hidden', 'false');
 		}else{
 			this.headerElm.setAttribute('aria-expanded', 'false');
+
+			this.contentElm.setAttribute('aria-hidden', 'true');
 		}
 	}
 
@@ -74,13 +85,12 @@ class AccordionItem extends HTMLElement {
 	}
 
 	set open(val) {
-	// Reflect the value of the open property as an HTML attribute.
-	if (val) {
-		this.setAttribute('open', '');
-	} else {
-		this.removeAttribute('open');
-	}
-		//this.toggle();
+		// Reflect the value of the open property as an HTML attribute.
+		if (val) {
+			this.setAttribute('open', '');
+		} else {
+			this.removeAttribute('open');
+		}
 	}
 
 	get headerElm(){
