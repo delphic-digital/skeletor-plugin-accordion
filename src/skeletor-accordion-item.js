@@ -12,16 +12,24 @@ class AccordionItem extends HTMLElement {
 
 			<style>
 
-				:focus                       { outline: 1px solid red; }
-				header                       { padding: 0 10px; font-size: 1.5em; cursor: pointer; border: 1px solid pink; }
-				header[aria-selected="true"] { outline: 1px solid red; }
-				.content                     { display: block; padding: 10px; border: 1px solid black; }
- 				.content[aria-hidden="true"] { display: none; }
+				:focus                   { outline: 1px solid red; }
+				dt                       { padding: 0 10px; font-size: 1.5em; cursor: pointer; border: 1px solid pink; }
+				dt[aria-selected="true"] { outline: 1px solid red; }
+				dd                       { display: block; margin: 0; padding: 10px; border: 1px solid black; }
+ 				dd[aria-hidden="true"]   { display: none; }
 
 			</style>
 
-			<header><slot name="header"></slot></header>
-			<div class="content"><slot name="content"></slot></div>
+			<dt role="heading">
+				<a role="button">
+					<slot name="header"></slot>
+				</a>
+			</dt>
+			<dd role="region">
+				<div>
+					<slot name="content"></slot>
+				</div>
+			</dd>
 		`;
 	}
 
@@ -30,76 +38,24 @@ class AccordionItem extends HTMLElement {
 	};
 
 	init(){
-		this.headerElm.setAttribute('role', 'tab');
-		this.headerElm.setAttribute('aria-expanded', 'false');
-		this.headerElm.setAttribute('aria-selected', 'false');
-
-		this.contentElm.setAttribute('role', 'tabpanel');
-		this.contentElm.setAttribute('aria-hidden', 'true');
-
-
-		//this.headerElm.setAttribute('aria-controls', `${this.uuid}-section`);
-
+		//this.shadowRoot.querySelector('dd').setAttribute('role', 'region');
 		this.initEventListeners()
 	}
 
 	initEventListeners(){
 		this.headerElm.addEventListener('click', e => {
-			this.toggle();
+			this.dispatchEvent(new Event('toggle', {bubbles: true, composed: true}));
 		});
 	}
 
-	toggle(){
-		if(this.open){
-			this.open=false
-		}else{
-			this.open=true
-		}
-	}
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		//console.log(`${name} attributes value changed`)
-
-		if(this.open){
-			this.headerElm.setAttribute('aria-expanded', 'true');
-			this.headerElm.setAttribute('aria-selected', 'true');
-
-			this.contentElm.setAttribute('aria-hidden', 'false');
-		}else{
-			this.headerElm.setAttribute('aria-expanded', 'false');
-
-			this.contentElm.setAttribute('aria-hidden', 'true');
-		}
-	}
-
-
-	//Observed attributes here will trigger the changed callback.
-
-	static get observedAttributes() {
-		return ['open'];
-	}
-
-	// A getter/setter for an open property.
-	get open() {
-		return this.hasAttribute('open');
-	}
-
-	set open(val) {
-		// Reflect the value of the open property as an HTML attribute.
-		if (val) {
-			this.setAttribute('open', '');
-		} else {
-			this.removeAttribute('open');
-		}
-	}
-
 	get headerElm(){
-		return this.shadowRoot.querySelector('header');
+		return this.shadowRoot.querySelector('dt');
 	}
 
 	get contentElm(){
-		return this.shadowRoot.querySelector('div');
+		return this.shadowRoot.querySelector('dd');
 	}
+
 }
 
 export default AccordionItem;

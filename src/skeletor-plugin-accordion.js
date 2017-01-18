@@ -48,6 +48,17 @@ class Accordion extends SkeletorPlugin {
 		this.setAttribute('id', this.UUID);
 		this.setAttribute('role', 'tablist');
 		this.setAttribute('aria-multiselectable', 'true');
+
+		//listeners
+
+		const items = this.querySelectorAll('skeletor-accordion-item');
+
+		items.forEach((item, index) => {
+			item.addEventListener('toggle', e => {
+				console.log('toggle', index)
+			});
+		})
+
 	}
 
 	open(value){
