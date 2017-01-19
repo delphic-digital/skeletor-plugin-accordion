@@ -25,27 +25,12 @@ class AccordionItem extends HTMLElement {
 					<slot name="header"></slot>
 				</a>
 			</dt>
-			<dd role="region">
+			<dd role="region" aria-hidden="true">
 				<div>
 					<slot name="content"></slot>
 				</div>
 			</dd>
 		`;
-	}
-
-	connectedCallback() {
-		this.init();
-	};
-
-	init(){
-		//this.shadowRoot.querySelector('dd').setAttribute('role', 'region');
-		this.initEventListeners()
-	}
-
-	initEventListeners(){
-		this.headerElm.addEventListener('click', e => {
-			this.dispatchEvent(new Event('toggle', {bubbles: true, composed: true}));
-		});
 	}
 
 	get headerElm(){
@@ -54,6 +39,17 @@ class AccordionItem extends HTMLElement {
 
 	get contentElm(){
 		return this.shadowRoot.querySelector('dd');
+	}
+
+	connectedCallback() {
+		this.init();
+	};
+
+	init(){
+		//this.shadowRoot.querySelector('dd').setAttribute('role', 'region');
+		this.headerElm.addEventListener('click', e => {
+			this.dispatchEvent(new Event('toggle', {bubbles: true, composed: true}));
+		});
 	}
 
 }

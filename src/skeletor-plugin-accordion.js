@@ -23,6 +23,11 @@ class Accordion extends SkeletorPlugin {
 		}
 	}
 
+	get items(){
+		return this.querySelectorAll('skeletor-accordion-item');
+	}
+
+
 	_attachShadowRoot(){
 		// Attach a shadow root.
 		this.attachShadow({mode: 'open'}).innerHTML = `
@@ -49,21 +54,29 @@ class Accordion extends SkeletorPlugin {
 		this.setAttribute('role', 'tablist');
 		this.setAttribute('aria-multiselectable', 'true');
 
-		//listeners
+		this.addEventListener('toggle', e => {
+			//console.log('toggle', e.target)
 
-		const items = this.querySelectorAll('skeletor-accordion-item');
+			this.closeAll();
 
-		items.forEach((item, index) => {
-			item.addEventListener('toggle', e => {
-				console.log('toggle', index)
-			});
+			let panel = e.target.shadowRoot.querySelector('dd');
+			panel.setAttribute('aria-hidden', 'false');
+		});
+
+
+
+	}
+
+	closeAll(){
+		this.items.forEach((item, index) => {
+			item.shadowRoot.querySelector('dd').setAttribute('aria-hidden', 'true');
 		})
-
 	}
 
 	open(value){
 		console.log('open', value)
 	}
+
 
 	static get ELEMENT_NAME() {
 		return "skeletor-accordion";
