@@ -59,16 +59,18 @@ class Accordion extends SkeletorPlugin {
 
 			this.closeAll();
 
-			let panel = e.target.shadowRoot.querySelector('dd');
+			let panel = e.target.shadowRoot.querySelector('dd'),
+			    heading = e.target.shadowRoot.querySelector('dt');
+
+			heading.setAttribute('aria-expanded', 'true');
 			panel.setAttribute('aria-hidden', 'false');
 		});
-
-
 
 	}
 
 	closeAll(){
 		this.items.forEach((item, index) => {
+			item.shadowRoot.querySelector('dt').setAttribute('aria-expanded', 'false');
 			item.shadowRoot.querySelector('dd').setAttribute('aria-hidden', 'true');
 		})
 	}
