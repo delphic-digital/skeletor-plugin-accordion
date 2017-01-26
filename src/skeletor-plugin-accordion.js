@@ -10,6 +10,7 @@ class Accordion extends SkeletorPlugin {
 
 	constructor(element, options){
 		super(element, options);
+
 		this._attachShadowRoot();
 
 		this.VERSION = '0.3.0';
@@ -22,11 +23,6 @@ class Accordion extends SkeletorPlugin {
 			easing: 'swing'
 		}
 	}
-
-	get items(){
-		return this.querySelectorAll('skeletor-accordion-item');
-	}
-
 
 	_attachShadowRoot(){
 		// Attach a shadow root.
@@ -54,6 +50,8 @@ class Accordion extends SkeletorPlugin {
 		this.setAttribute('role', 'tablist');
 		this.setAttribute('aria-multiselectable', 'true');
 
+		this.setInitialAttributes();
+
 		this.addEventListener('toggle', e => {
 			//console.log('toggle', e.target)
 
@@ -68,6 +66,11 @@ class Accordion extends SkeletorPlugin {
 
 	}
 
+	setInitialAttributes(){
+		console.log(this.headings)
+		console.log(this.panels)
+	}
+
 	closeAll(){
 		this.items.forEach((item, index) => {
 			item.shadowRoot.querySelector('dt').setAttribute('aria-expanded', 'false');
@@ -77,6 +80,18 @@ class Accordion extends SkeletorPlugin {
 
 	open(value){
 		console.log('open', value)
+	}
+
+	get items(){
+		return this.querySelectorAll('skeletor-accordion-item');
+	}
+
+	get headings(){
+		return Array.from(this.items, item => item.shadowRoot.querySelector('dt') )
+	}
+
+	get panels(){
+		return Array.from(this.items, item => item.shadowRoot.querySelector('dd') )
 	}
 
 
