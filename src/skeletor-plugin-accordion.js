@@ -3,6 +3,8 @@
  * @license     http://opensource.org/licenses/BSD-3-Clause
  */
 
+ //https://www.w3.org/TR/wai-aria-practices/examples/accordion/accordion1.html
+
 import SkeletorPlugin from 'skeletor-plugin-base';
 import AccordionItem from './skeletor-accordion-item'
 
@@ -58,9 +60,10 @@ class Accordion extends SkeletorPlugin {
 			this.closeAll();
 
 			let panel = e.target.shadowRoot.querySelector('dd'),
-			    heading = e.target.shadowRoot.querySelector('dt');
+			    heading = e.target.shadowRoot.querySelector('dt a');
 
 			heading.setAttribute('aria-expanded', 'true');
+			heading.setAttribute('aria-disabled', 'true');
 			panel.setAttribute('aria-hidden', 'false');
 		});
 
@@ -69,13 +72,24 @@ class Accordion extends SkeletorPlugin {
 	setInitialAttributes(){
 		console.log(this.headings)
 		console.log(this.panels)
+
+		this.headings.forEach((item, index) => {
+			item.setAttribute('aria-controls', this.UUID + '-item-' + index);
+			item.setAttribute('id', this.UUID + '-heading-' + index);
+		})
+
+		this.panels.forEach((item, index) => {
+			item.setAttribute('id', this.UUID + '-item-' + index);
+			item.setAttribute('aria-labelledby', this.UUID + '-item-' + index);
+		})
 	}
 
 	closeAll(){
-		this.items.forEach((item, index) => {
-			item.shadowRoot.querySelector('dt').setAttribute('aria-expanded', 'false');
-			item.shadowRoot.querySelector('dd').setAttribute('aria-hidden', 'true');
+		this.headings.forEach((item) => {
+			item.setAttribute('aria-expanded', 'false');
+			item.setAttribute('aria-disabled', 'false');
 		})
+		this.panels.forEach((item) => { item.setAttribute('aria-hidden', 'true'); })
 	}
 
 	open(value){
@@ -87,11 +101,11 @@ class Accordion extends SkeletorPlugin {
 	}
 
 	get headings(){
-		return Array.from(this.items, item => item.shadowRoot.querySelector('dt') )
+		return Array.from(this.items, item => item.shadowRoot.querySelector('dt a'));
 	}
 
 	get panels(){
-		return Array.from(this.items, item => item.shadowRoot.querySelector('dd') )
+		return Array.from(this.items, item => item.shadowRoot.querySelector('dd'));
 	}
 
 

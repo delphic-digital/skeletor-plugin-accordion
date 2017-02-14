@@ -21,7 +21,7 @@ class AccordionItem extends HTMLElement {
 			</style>
 
 			<dt role="heading">
-				<a role="button">
+				<a role="button" aria-expanded="false">
 					<slot name="header"></slot>
 				</a>
 			</dt>
@@ -34,7 +34,7 @@ class AccordionItem extends HTMLElement {
 	}
 
 	get headerElm(){
-		return this.shadowRoot.querySelector('dt');
+		return this.shadowRoot.querySelector('dt a');
 	}
 
 	get contentElm(){
