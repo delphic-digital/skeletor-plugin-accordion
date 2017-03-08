@@ -70,8 +70,6 @@ class Accordion extends SkeletorPlugin {
 	}
 
 	setInitialAttributes(){
-		console.log(this.headings)
-		console.log(this.panels)
 
 		this.headings.forEach((item, index) => {
 			item.setAttribute('aria-controls', this.UUID + '-item-' + index);
